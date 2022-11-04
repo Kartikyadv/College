@@ -41,6 +41,7 @@ void display(struct stack *s){
 int x = s->top;
 if(s->top==-1){
     printf("stack is Empty\n");
+    return ;
 }
 while(x > -1){
 int item;
