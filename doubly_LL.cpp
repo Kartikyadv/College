@@ -10,7 +10,7 @@ void d_display(struct dnode *);
 int d_count(struct dnode *);
 void d_delete(struct dnode **, int);
 void d_addatbeg(struct dnode **, int);
-void d_addafter(struct dnode *, int, int);
+void d_addafter(struct dnode **, int, int);
 
 int main(){
     struct dnode *p;
@@ -25,41 +25,32 @@ int main(){
     d_addatbeg(&p, 1234);
     d_delete(&p, 185);
     d_delete(&p, 999);
-    d_addafter(p, 5, 91);
+    d_addafter(&p, 2, 91);
     d_display(p);
     cout<< "No. of element in doubly LL are: " << d_count(p) << endl;
     cout << "Sab sahi chalra h" << endl;
     return 0;
 }
 
-void d_addafter(struct dnode *s, int loc, int num){
-    struct dnode *temp;
-    int i = 0;
+void d_addafter(struct dnode **s, int loc, int num){
+    struct dnode *temp, *r;
+    int i;
+    temp = *s;
     // SKIP TO THE DESIRED ELEMENT
-    for(i = 0; i<loc; i++){
-        s = s->next;
+    for(i = 1; i<loc; i++){
+        temp = temp->next;
         // ENTERED LOC IS NOT THERE
-        if(s==NULL){
+        if(temp==NULL){
  cout << "There are less than " << loc << " elements" << endl;
     return ;
         }
     }
-    q = q->prev;
-    temp = (struct dnode*)malloc(sizeof(struct dnode));
-    temp->data = num;
-    temp->prev = q;
-    temp->next = q->next;
-    (temp->next)->prev = temp;
-    q->next = temp;
+    r = (struct dnode*)malloc(sizeof(struct dnode));
+    r->data = num;
+    r->prev = temp;
+    r->next = temp->next;
+    temp->next = r;
 }
-
-
-
-
-
-
-
-
 
 void d_addatbeg(struct dnode **s, int num){
     struct dnode *q;
@@ -133,4 +124,3 @@ void d_display(struct dnode *s){
     }
     cout << endl;
 }
-
